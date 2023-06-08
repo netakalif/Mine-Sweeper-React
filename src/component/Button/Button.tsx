@@ -5,8 +5,10 @@ import "./Button.css"
 interface ButtonProps{
     cell:Cell
     onclick:any //change later!!!!!!!!!!!!!!!!
+    onRightClick: any
+    onFirstClick: any
 }
-const Button = ({cell, onclick}:ButtonProps) => {
+const Button = ({cell, onclick,onRightClick,onFirstClick}:ButtonProps) => {
 
     const getWhatToShow=()=>{
         if(cell.stat===cellStatus.open ){
@@ -22,7 +24,7 @@ const Button = ({cell, onclick}:ButtonProps) => {
         else return "🚩";        
     }
   return (
-    <div className={`button ${cell.stat === cellStatus.open? "open": ""}`} onClick={onclick}>{getWhatToShow()}</div>
+    <div className={`button ${cell.stat === cellStatus.open? "open": ""}`} onContextMenu={(e)=>{onRightClick(e)}} onClick={()=>{onFirstClick(); onclick()}}>{getWhatToShow()}</div>
   )
 }
 

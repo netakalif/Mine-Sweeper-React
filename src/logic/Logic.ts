@@ -13,7 +13,7 @@ export const makeCells = () => {
     for (let col = 0; col < NUMBER_OF_COLUMNS; col++) {
       cells[row].push({
         val: cellValue.none,
-        stat: cellStatus.open,
+        stat: cellStatus.close,
         indexCol: col,
         indexRow: row,
       });
@@ -73,7 +73,6 @@ export const makeCells = () => {
       const currCell = cells[row][col];
       if (currCell.val != cellValue.bomb) {
         const numberOfBombs = nearByBombs(row, col);
-        console.log(numberOfBombs);
         cells[row][col] = { ...currCell, val: numberOfBombs };
       }
     }
