@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import NumberDisplay from "./component/NumberDisplay/NumberDisplay";
-import { makeCells } from "./logic/Logic";
+import { makeCells,discoverCells } from "./logic/Logic";
 import Button from "./component/Button/Button";
 import { Cell, cellStatus } from "./types/Types";
 import { NUMBER_OF_BOMBS } from "./constant/Constant";
@@ -11,14 +11,20 @@ const App = () => {
   const [isLive, setIsLive] = useState<boolean>(false);
   const [flagRemained, setFlagRemained] = useState<number>(NUMBER_OF_BOMBS);
 
+  const handleBomb=()=>{
+    //TODO- show all the bombs
+    restartBoard();
+  }
   const onButtonLeftClick = (cell: Cell) => {
-    if (cells[cell.indexRow][cell.indexCol].stat !== cellStatus.flagged) {
-      let newcells = cells.slice();
-      newcells[cell.indexRow][cell.indexCol] = {
-        ...cell,
-        stat: cellStatus.open,
-      };
-      setCells(newcells);
+    if (cells[cell.indexRow][cell.indexCol].stat === cellStatus.close ) {
+      const newCells=discoverCells(cells,cell.indexRow,cell.indexCol,handleBomb);
+      setCells(newCells);
+      // let newcells = cells.slice();
+      // newcells[cell.indexRow][cell.indexCol] = {
+      //   ...cell,
+      //   stat: cellStatus.open,
+      // };
+      // setCells(newcells);
     }
   };
 
@@ -27,7 +33,6 @@ const App = () => {
     cell: Cell,
     e: React.MouseEvent<HTMLDivElement>
   ) => {
-    console.log(cell);
     e.preventDefault();
     let newcells = cells.slice();
     if (newcells[cell.indexRow][cell.indexCol].stat !== cellStatus.open) {

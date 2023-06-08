@@ -30,11 +30,7 @@ export const makeCells = () => {
       numberOfBombsPlaced++;
     }
   }
-  const isSafe = (row: number, col: number): boolean => {
-    if (row < 0 || row >= NUMBER_OF_ROWS || col < 0 || col >= NUMBER_OF_COLUMNS)
-      return false;
-    return true;
-  };
+
   const nearByBombs = (row: number, col: number): number => {
     let numberOfNearBombs = 0;
     if (
@@ -79,4 +75,44 @@ export const makeCells = () => {
   }
 
   return cells;
+};
+
+const isSafe = (row: number, col: number): boolean => {
+  if (row < 0 || row >= NUMBER_OF_ROWS || col < 0 || col >= NUMBER_OF_COLUMNS)
+    return false;
+  return true;
+};
+
+export const discoverCells = (
+  cells: Cell[][],
+  row: number,
+  col: number,
+  handleBomb: any
+): Cell[][] => {
+  const newCells = cells.slice();
+  const temp = (row1: number, col1: number) => {
+    const currCell = cells[row1][col1];
+    if (currCell.stat === cellStatus.open) return;
+    else {
+      currCell.stat = cellStatus.open;
+
+      if (currCell.val === cellValue.bomb) {
+        handleBomb();
+      } else if (currCell.val !== cellValue.none) {
+        return;
+      } else {
+        //val=none
+        isSafe(row1 - 1, col1 - 1) ? temp(row1 - 1, col1 - 1) : null;
+        isSafe(row1 - 1, col1) ? temp(row1 - 1, col1) : null;
+        isSafe(row1 - 1, col1 + 1) ? temp(row1 - 1, col1 + 1) : null;
+        isSafe(row1, col1 - 1) ? temp(row1, col1 - 1) : null;
+        isSafe(row1, col1 + 1) ? temp(row1, col1 + 1) : null;
+        isSafe(row1 + 1, col1 - 1) ? temp(row1 + 1, col1 - 1) : null;
+        isSafe(row1 + 1, col1) ? temp(row1 + 1, col1) : null;
+        isSafe(row1 + 1, col1 + 1) ? temp(row1 + 1, col1 + 1) : null;
+      }
+    }
+  };
+  temp(row, col);
+  return newCells;
 };
