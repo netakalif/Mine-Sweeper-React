@@ -28,7 +28,7 @@ const App = () => {
     <div className="App">
       <div className="header">
         <NumberDisplay val={3} />
-        <button className="flower button" onClick={restartBoard}>&#x1F33C;</button>
+        <button className="button" onClick={restartBoard}>&#x1F33C;</button>
         <NumberDisplay val={3} />
       </div>
       <div className="body">{renderCells()}

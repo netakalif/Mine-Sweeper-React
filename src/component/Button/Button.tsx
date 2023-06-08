@@ -9,17 +9,17 @@ interface ButtonProps{
 const Button = ({cell, onclick}:ButtonProps) => {
 
     const getWhatToShow=()=>{
-        if(cell.stat===cellStatus.open && cell.val!=cellValue.none){
-            return cell.val;
+        if(cell.stat===cellStatus.open ){
+            if (cell.val!=cellValue.none && cell.val!=cellValue.bomb) 
+                return cell.val;
+            else if(cell.val===cellValue.bomb)
+                return 	"💣";
+            else return "";
         }
-        else if(cell.stat===cellStatus.close || cell.val===cellValue.none ){
+        else if(cell.stat===cellStatus.close){
             return "";
         }
-        else if(cell.stat===cellStatus.flagged)
-            return "🚩";
-        else
-            return "";
-        
+        else return "🚩";        
     }
   return (
     <div className={`button ${cell.stat === cellStatus.open? "open": ""}`} onClick={onclick}>{getWhatToShow()}</div>
