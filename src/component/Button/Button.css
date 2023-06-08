@@ -8,5 +8,13 @@
     border-left-color: white;
     border-top-color: white;
     text-align: center;
+    
+}
+.open{
+    border-right-color: white;
+    border-bottom-color: white;
+    border-left-color: #7b7b7b;
+    border-top-color: #7b7b7b;
 
 }
+
