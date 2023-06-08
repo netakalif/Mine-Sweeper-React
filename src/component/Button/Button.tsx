@@ -1,10 +1,10 @@
-import React from 'react'
+
 import {Cell,cellStatus,cellValue} from "../../types/Types"
 import "./Button.css"
 
 interface ButtonProps{
     cell:Cell
-    onclick:any //change later!!!!!!!!!!!!!!!!
+    onclick:any 
     onRightClick: any
     onFirstClick: any
 }

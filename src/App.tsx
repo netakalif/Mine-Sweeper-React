@@ -1,30 +1,31 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import NumberDisplay from "./component/NumberDisplay/NumberDisplay";
-import { makeCells,discoverCells } from "./logic/Logic";
+import { makeCells, discoverCells, openAllBombs } from "./logic/Logic";
 import Button from "./component/Button/Button";
 import { Cell, cellStatus } from "./types/Types";
-import { NUMBER_OF_BOMBS } from "./constant/Constant";
+import { NUMBER_OF_BOMBS, NUMBER_OF_ROWS } from "./constant/Constant";
 const App = () => {
+  
   const [cells, setCells] = useState(makeCells());
   const [time, setTime] = useState<number>(0);
   const [isLive, setIsLive] = useState<boolean>(false);
   const [flagRemained, setFlagRemained] = useState<number>(NUMBER_OF_BOMBS);
 
-  const handleBomb=()=>{
-    //TODO- show all the bombs
+  const handleBomb = () => {
+    openAllBombs(cells);
     restartBoard();
-  }
+  };
+
   const onButtonLeftClick = (cell: Cell) => {
-    if (cells[cell.indexRow][cell.indexCol].stat === cellStatus.close ) {
-      const newCells=discoverCells(cells,cell.indexRow,cell.indexCol,handleBomb);
+    if (cells[cell.indexRow][cell.indexCol].stat === cellStatus.close) {
+      const newCells = discoverCells(
+        cells,
+        cell.indexRow,
+        cell.indexCol,
+        handleBomb
+      );
       setCells(newCells);
-      // let newcells = cells.slice();
-      // newcells[cell.indexRow][cell.indexCol] = {
-      //   ...cell,
-      //   stat: cellStatus.open,
-      // };
-      // setCells(newcells);
     }
   };
 
@@ -61,7 +62,8 @@ const App = () => {
   };
   //timer
   useEffect(() => {
-    if (isLive) {
+    if(time===999) restartBoard();
+    else if (isLive) {
       const timer = setInterval(() => {
         setTime(time + 1);
       }, 1000);
@@ -89,21 +91,22 @@ const App = () => {
   };
 
   const restartBoard = () => {
-    if (isLive) {
-      setCells(makeCells());
-      renderCells();
-      setTime(0);
-      setFlagRemained(NUMBER_OF_BOMBS);
-      setIsLive(false);
-    }
+    console.log("reset");
+    const freshCells = makeCells();
+    setCells(freshCells);
+    console.log("made cells");
+    renderCells();
+    setTime(0);
+    setFlagRemained(NUMBER_OF_BOMBS);
+    setIsLive(false);
   };
 
   return (
     <div className="App">
       <div className="header">
         <NumberDisplay key="flagsLeft" val={flagRemained} />
-        <button className="button" onClick={restartBoard}>
-          &#x1F33C;
+        <button className="button" id="reset" onClick={restartBoard}>
+          reset
         </button>
         <NumberDisplay key="time" val={time} />
       </div>
