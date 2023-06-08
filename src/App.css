@@ -1,0 +1,46 @@
+.App {
+  background:#c2c2c2;
+  border-style: solid;
+  border-width: 5px;
+  padding: 16px;
+  border-right-color:#999;
+  border-bottom-color: #999;
+  border-left-color: white;
+  border-top-color: white;
+}
+.header{
+  border-style: solid;
+  border-right-color: white;
+  border-bottom-color:white;
+  border-left-color: #7b7b7b;
+  border-top-color: #7b7b7b;
+  border-width: 5px;
+  
+  align-items: center;
+  background: #c0c0c0;
+  display: flex; 
+  justify-content: space-between;
+  padding: 10px 12px;
+}
+.body {
+  margin-top: 10px ;
+  background-color: #c0c0c0;
+  padding: 10px 12px;
+  border-style: solid;
+  border-width: 5px;
+  border-right-color: white;
+  border-bottom-color: white;
+  border-left-color: #7b7b7b;
+  border-top-color: #7b7b7b;
+
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  margin-top: 16px;
+}
+.flower{
+    width: 80 px;
+    height: 48px;
+    text-align: center;
+    font-size: 40px;
+}
