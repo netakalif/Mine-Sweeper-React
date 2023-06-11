@@ -4,7 +4,7 @@ import NumberDisplay from "./component/NumberDisplay/NumberDisplay";
 import { makeCells, discoverCells, openAllBombs } from "./logic/Logic";
 import Button from "./component/Button/Button";
 import { Cell, cellStatus } from "./types/Types";
-import { NUMBER_OF_BOMBS, NUMBER_OF_ROWS } from "./constant/Constant";
+import { NUMBER_OF_BOMBS} from "./constant/Constant";
 const App = () => {
   
   const [cells, setCells] = useState(makeCells());
